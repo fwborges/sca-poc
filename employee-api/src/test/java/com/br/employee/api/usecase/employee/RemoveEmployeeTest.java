@@ -1,7 +1,7 @@
-package com.br.employee.api.employee;
+package com.br.employee.api.usecase.employee;
 
 import com.br.employee.api.common.exception.EmployeeNotFoundException;
-import com.br.employee.api.employee.entities.Employee;
+import com.br.employee.api.usecase.employee.entities.Employee;
 import com.br.employee.api.gateway.repository.EmployeeRepoGateway;
 import org.junit.Before;
 import org.junit.Test;

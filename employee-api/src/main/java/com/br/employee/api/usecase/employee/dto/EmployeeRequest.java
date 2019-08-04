@@ -1,4 +1,4 @@
-package com.br.employee.api.employee.dto;
+package com.br.employee.api.usecase.employee.dto;
 
 import lombok.Data;
 

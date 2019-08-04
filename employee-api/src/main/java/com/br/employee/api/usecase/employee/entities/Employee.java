@@ -1,4 +1,4 @@
-package com.br.employee.api.employee.entities;
+package com.br.employee.api.usecase.employee.entities;
 
 public class Employee {
 

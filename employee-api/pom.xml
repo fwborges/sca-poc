@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.br</groupId>
 	<artifactId>employee.api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>employee.api</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -114,7 +114,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.80</minimum>
+                                            <minimum>0.00</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

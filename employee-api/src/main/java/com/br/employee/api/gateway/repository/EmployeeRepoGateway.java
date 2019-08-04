@@ -1,6 +1,6 @@
 package com.br.employee.api.gateway.repository;
 
-import com.br.employee.api.employee.entities.Employee;
+import com.br.employee.api.usecase.employee.entities.Employee;
 
 import java.util.List;
 import java.util.Optional;

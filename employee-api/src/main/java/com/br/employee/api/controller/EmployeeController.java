@@ -1,11 +1,11 @@
 package com.br.employee.api.controller;
 
-import com.br.employee.api.employee.CreateEmployee;
-import com.br.employee.api.employee.GetListOfEmployee;
-import com.br.employee.api.employee.RemoveEmployee;
-import com.br.employee.api.employee.dto.EmployeeRequest;
-import com.br.employee.api.employee.dto.EmployeeResponse;
-import com.br.employee.api.employee.entities.Employee;
+import com.br.employee.api.usecase.employee.CreateEmployee;
+import com.br.employee.api.usecase.employee.GetListOfEmployee;
+import com.br.employee.api.usecase.employee.RemoveEmployee;
+import com.br.employee.api.usecase.employee.dto.EmployeeRequest;
+import com.br.employee.api.usecase.employee.dto.EmployeeResponse;
+import com.br.employee.api.usecase.employee.entities.Employee;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

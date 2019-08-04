@@ -2,7 +2,7 @@ package com.br.employee.api.gateway.repository.impl;
 
 import com.br.employee.api.db.model.EmployeeModel;
 import com.br.employee.api.db.repository.EmployeeRepository;
-import com.br.employee.api.employee.entities.Employee;
+import com.br.employee.api.usecase.employee.entities.Employee;
 import com.br.employee.api.gateway.repository.EmployeeRepoGateway;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
