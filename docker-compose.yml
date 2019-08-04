@@ -1,0 +1,43 @@
+version: "3.6"
+services:
+
+  employee-api:
+    image: employee-api:latest
+    build: ./employee-api
+    ports:
+      - "8080:8080"
+    networks: 
+      - employee-network
+    depends_on:
+      - mongo
+      - config-server
+
+  mongo:
+    image: mongo:latest
+    networks:
+      - employee-network
+    ports:
+      - "27017:27017"
+
+  config-server:
+    image: config-server:latest
+    build: ./config-server
+    networks: 
+      - employee-network
+    ports:
+      - "8888:8888"
+
+  mongo-express:
+    image: mongo-express:latest
+    networks: 
+      - employee-network
+    ports:
+      - "8081:8081"
+
+networks: 
+  default:
+  employee-network:
+    ipam:
+      config:
+        - subnet: 20.30.0.0/16
+  
