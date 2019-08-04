@@ -1,4 +1,4 @@
-package com.br.employee.api.usecase.employee.dto;
+package com.br.employee.api.controller.employee.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

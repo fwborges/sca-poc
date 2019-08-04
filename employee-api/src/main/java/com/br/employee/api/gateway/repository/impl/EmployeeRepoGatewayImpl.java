@@ -1,7 +1,9 @@
 package com.br.employee.api.gateway.repository.impl;
 
+import com.br.employee.api.db.model.DepartamentModel;
 import com.br.employee.api.db.model.EmployeeModel;
 import com.br.employee.api.db.repository.EmployeeRepository;
+import com.br.employee.api.usecase.employee.entities.Departament;
 import com.br.employee.api.usecase.employee.entities.Employee;
 import com.br.employee.api.gateway.repository.EmployeeRepoGateway;
 import org.modelmapper.ModelMapper;
@@ -24,7 +26,13 @@ public class EmployeeRepoGatewayImpl implements EmployeeRepoGateway {
     @Override
     public void saveNewEmployee(Employee employee) {
 
-        EmployeeModel employeeModel = mapper.map(employee, EmployeeModel.class);
+        DepartamentModel departamentModel = DepartamentModel.valueOf(employee.getDepartament().name());
+
+        EmployeeModel employeeModel = EmployeeModel.builder()
+                                        .name(employee.getName())
+                                        .departament(departamentModel)
+                                        .email(employee.getEmail().toLowerCase())
+                                        .build();
 
         repository.save(employeeModel);
     }
@@ -38,7 +46,7 @@ public class EmployeeRepoGatewayImpl implements EmployeeRepoGateway {
     @Override
     public Optional<Employee> findByEmail(String email) {
 
-        Optional<EmployeeModel> employeeModel = repository.findByEmail(email);
+        Optional<EmployeeModel> employeeModel = repository.findByEmail(email.toLowerCase());
 
         if(employeeModel.isPresent()) {
             return Optional.of(mapper.map(employeeModel.get(), Employee.class));
@@ -50,9 +58,22 @@ public class EmployeeRepoGatewayImpl implements EmployeeRepoGateway {
     @Override
     public List<Employee> findAll() {
 
-        List<EmployeeModel> employeeModels = repository.findAll();
+        List<EmployeeModel> employeesModel = repository.findAll();
 
-        return employeeModels
+        return employeesModel
+                .stream()
+                .map(employee -> mapper.map(employee, Employee.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Employee> findByDepartament(Departament departament) {
+
+        DepartamentModel departamentModel = DepartamentModel.valueOf(departament.name());
+
+        List<EmployeeModel> employeesModel = repository.findByDepartament(departamentModel);
+
+        return employeesModel
                 .stream()
                 .map(employee -> mapper.map(employee, Employee.class))
                 .collect(Collectors.toList());

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @UseCase
-public class GetListOfEmployee {
+public class GetListOfAllEmployees {
 
     @Autowired
     private EmployeeRepoGateway employeeRepoGateway;

@@ -1,5 +1,6 @@
 package com.br.employee.api.gateway.repository;
 
+import com.br.employee.api.usecase.employee.entities.Departament;
 import com.br.employee.api.usecase.employee.entities.Employee;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface EmployeeRepoGateway {
     Optional<Employee> findByEmail(String email);
 
     List<Employee> findAll();
+
+    List<Employee> findByDepartament(Departament departament);
 }

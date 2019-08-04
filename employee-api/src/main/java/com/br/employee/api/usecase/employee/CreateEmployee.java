@@ -6,12 +6,16 @@ import com.br.employee.api.common.exception.InvalidEmailException;
 import com.br.employee.api.usecase.employee.entities.Employee;
 import com.br.employee.api.gateway.client.EmailValidatorGateway;
 import com.br.employee.api.gateway.repository.EmployeeRepoGateway;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
 @UseCase
 public class CreateEmployee {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(CreateEmployee.class);
 
     private EmployeeRepoGateway employeeRepoGateway;
 
@@ -40,6 +44,7 @@ public class CreateEmployee {
     private void checkIfInvalidEmail(Employee employeeRequest) {
 
         if(emailValidatorGateway.isInvalidEmail(employeeRequest.getEmail())) {
+            LOGGER.error("Cannot create employee with invalid email {} ", employeeRequest.getEmail());
             throw new InvalidEmailException("Cannot create employee with invalid email");
         }
     }
@@ -49,6 +54,7 @@ public class CreateEmployee {
         Optional<Employee> employee = employeeRepoGateway.findByEmail(employeeRequest.getEmail());
 
         employee.ifPresent(emp -> {
+            LOGGER.error("Cannot create employee, this email {} is already used ", employeeRequest.getEmail());
             throw new EmployeeAlreadyExistsException("Cannot create employee, this email is already used");
         });
     }

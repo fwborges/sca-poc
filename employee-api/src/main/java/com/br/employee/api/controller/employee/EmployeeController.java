@@ -1,10 +1,13 @@
-package com.br.employee.api.controller;
+package com.br.employee.api.controller.employee;
 
+import com.br.employee.api.controller.employee.dto.DepartamentRequestOpt;
+import com.br.employee.api.controller.employee.dto.EmployeeRequest;
+import com.br.employee.api.controller.employee.dto.EmployeeResponse;
 import com.br.employee.api.usecase.employee.CreateEmployee;
-import com.br.employee.api.usecase.employee.GetListOfEmployee;
+import com.br.employee.api.usecase.employee.GetListOfAllEmployees;
+import com.br.employee.api.usecase.employee.GetListOfEmployeesByDepartament;
 import com.br.employee.api.usecase.employee.RemoveEmployee;
-import com.br.employee.api.usecase.employee.dto.EmployeeRequest;
-import com.br.employee.api.usecase.employee.dto.EmployeeResponse;
+import com.br.employee.api.usecase.employee.entities.Departament;
 import com.br.employee.api.usecase.employee.entities.Employee;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +19,17 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController(value = "controller")
+@RestController(value = "employee")
 public class EmployeeController {
 
     @Autowired
     private CreateEmployee createEmployee;
 
     @Autowired
-    private GetListOfEmployee getListOfEmployee;
+    private GetListOfAllEmployees getListOfAllEmployees;
+
+    @Autowired
+    private GetListOfEmployeesByDepartament getListOfEmployeesByDepartament;
 
     @Autowired
     private RemoveEmployee removeEmployee;
@@ -42,7 +48,18 @@ public class EmployeeController {
     @GetMapping("list-all")
     public List<EmployeeResponse> getAllEmployees() {
 
-        List<Employee> employees = getListOfEmployee.execute();
+        List<Employee> employees = getListOfAllEmployees.execute();
+
+        return employees
+                .stream()
+                .map(employee -> mapper.map(employee, EmployeeResponse.class))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("list-by-departament")
+    public List<EmployeeResponse> getAllEmployessByDepartament(@RequestParam DepartamentRequestOpt departament) {
+
+        List<Employee> employees = getListOfEmployeesByDepartament.execute(Departament.valueOf(departament.name()));
 
         return employees
                 .stream()

@@ -1,4 +1,4 @@
-package com.br.employee.api.usecase.employee.dto;
+package com.br.employee.api.controller.employee.dto;
 
 import lombok.Data;
 
@@ -17,6 +17,5 @@ public class EmployeeRequest {
     private String email;
 
     @NotNull
-    @NotEmpty(message = "Departament is required")
-    private String departament;
+    private DepartamentRequestOpt departament;
 }

@@ -8,7 +8,7 @@ public class Employee {
 
     private String email;
 
-    private String departament;
+    private Departament departament;
 
     public String getId() {
         return id;
@@ -34,11 +34,11 @@ public class Employee {
         this.email = email;
     }
 
-    public String getDepartament() {
+    public Departament getDepartament() {
         return departament;
     }
 
-    public void setDepartament(String departament) {
+    public void setDepartament(Departament departament) {
         this.departament = departament;
     }
 }

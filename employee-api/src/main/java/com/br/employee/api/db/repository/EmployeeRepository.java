@@ -1,5 +1,6 @@
 package com.br.employee.api.db.repository;
 
+import com.br.employee.api.db.model.DepartamentModel;
 import com.br.employee.api.db.model.EmployeeModel;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,8 @@ import java.util.Optional;
 public interface EmployeeRepository extends CrudRepository<EmployeeModel, String> {
 
     List<EmployeeModel> findAll();
+
+    List<EmployeeModel> findByDepartament(DepartamentModel departamentModel);
 
     Optional<EmployeeModel> findByEmail(String email);
 

@@ -2,6 +2,7 @@ package com.br.employee.api.usecase.employee;
 
 import com.br.employee.api.common.exception.EmployeeAlreadyExistsException;
 import com.br.employee.api.common.exception.InvalidEmailException;
+import com.br.employee.api.usecase.employee.entities.Departament;
 import com.br.employee.api.usecase.employee.entities.Employee;
 import com.br.employee.api.gateway.client.EmailValidatorGateway;
 import com.br.employee.api.gateway.repository.EmployeeRepoGateway;
@@ -64,7 +65,7 @@ public class CreateEmployeeTest {
         Employee employeeInput = new Employee();
         employeeInput.setName("Meu nome");
         employeeInput.setEmail("meuemail@email.com");
-        employeeInput.setDepartament("Meu departamento");
+        employeeInput.setDepartament(Departament.ARCHITECTURE);
         return employeeInput;
     }
 }

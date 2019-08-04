@@ -21,5 +21,5 @@ public class EmployeeModel {
 
     private String email;
 
-    private String departament;
+    private DepartamentModel departament;
 }
