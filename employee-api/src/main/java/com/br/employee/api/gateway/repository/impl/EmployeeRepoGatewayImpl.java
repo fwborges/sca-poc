@@ -40,7 +40,7 @@ public class EmployeeRepoGatewayImpl implements EmployeeRepoGateway {
     @Override
     public void deleteByEmail(String email) {
 
-        repository.deleteByEmail(email);
+        repository.deleteByEmail(email.toLowerCase());
     }
 
     @Override
