@@ -45,7 +45,7 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("list-all")
+    @GetMapping("list")
     public List<EmployeeResponse> getAllEmployees() {
 
         List<Employee> employees = getListOfAllEmployees.execute();

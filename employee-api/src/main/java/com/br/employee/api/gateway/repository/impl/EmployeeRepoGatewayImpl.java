@@ -6,7 +6,6 @@ import com.br.employee.api.db.repository.EmployeeRepository;
 import com.br.employee.api.usecase.employee.entities.Departament;
 import com.br.employee.api.usecase.employee.entities.Employee;
 import com.br.employee.api.gateway.repository.EmployeeRepoGateway;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +16,13 @@ import java.util.stream.Collectors;
 @Component
 public class EmployeeRepoGatewayImpl implements EmployeeRepoGateway {
 
-    @Autowired
     private EmployeeRepository repository;
 
     @Autowired
-    private ModelMapper mapper;
+    public EmployeeRepoGatewayImpl(EmployeeRepository repository) {
+
+        this.repository = repository;
+    }
 
     @Override
     public void saveNewEmployee(Employee employee) {
@@ -49,7 +50,7 @@ public class EmployeeRepoGatewayImpl implements EmployeeRepoGateway {
         Optional<EmployeeModel> employeeModel = repository.findByEmail(email.toLowerCase());
 
         if(employeeModel.isPresent()) {
-            return Optional.of(mapper.map(employeeModel.get(), Employee.class));
+            return Optional.of(convertToEntity(employeeModel.get()));
         }
 
         return Optional.empty();
@@ -62,7 +63,7 @@ public class EmployeeRepoGatewayImpl implements EmployeeRepoGateway {
 
         return employeesModel
                 .stream()
-                .map(employee -> mapper.map(employee, Employee.class))
+                .map(employee -> convertToEntity(employee))
                 .collect(Collectors.toList());
     }
 
@@ -75,7 +76,17 @@ public class EmployeeRepoGatewayImpl implements EmployeeRepoGateway {
 
         return employeesModel
                 .stream()
-                .map(employee -> mapper.map(employee, Employee.class))
+                .map(employee -> convertToEntity(employee))
                 .collect(Collectors.toList());
+    }
+
+    private Employee convertToEntity(EmployeeModel model) {
+
+        return Employee.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .departament(Departament.valueOf(model.getDepartament().name()))
+                .email(model.getEmail())
+                .build();
     }
 }

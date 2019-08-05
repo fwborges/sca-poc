@@ -11,8 +11,12 @@ import java.util.List;
 @UseCase
 public class GetListOfEmployeesByDepartament {
 
-    @Autowired
     private EmployeeRepoGateway employeeRepoGateway;
+
+    @Autowired
+    public GetListOfEmployeesByDepartament(EmployeeRepoGateway employeeRepoGateway) {
+        this.employeeRepoGateway = employeeRepoGateway;
+    }
 
     public List<Employee> execute(Departament departament) {
 

@@ -12,7 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RemoveEmployeeTest {
@@ -34,6 +34,8 @@ public class RemoveEmployeeTest {
         when(employeeRepoGateway.findByEmail("meuemail@email.com")).thenReturn(Optional.of(buildEmployee()));
 
         removeEmployee.execute("meuemail@email.com");
+
+        verify(employeeRepoGateway, times(1)).deleteByEmail("meuemail@email.com");
     }
 
     @Test(expected = EmployeeNotFoundException.class)
@@ -46,10 +48,10 @@ public class RemoveEmployeeTest {
 
     private Employee buildEmployee() {
 
-        Employee employeeInput = new Employee();
-        employeeInput.setName("Meu nome");
-        employeeInput.setEmail("meuemail@email.com");
-        employeeInput.setDepartament(Departament.DEVELOPMENT);
-        return employeeInput;
+        return Employee.builder()
+                .name("Meu nome")
+                .email("meuemail@email.com")
+                .departament(Departament.DEVELOPMENT)
+                .build();
     }
 }

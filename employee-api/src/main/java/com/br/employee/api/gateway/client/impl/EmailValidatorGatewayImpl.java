@@ -12,14 +12,21 @@ public class EmailValidatorGatewayImpl implements EmailValidatorGateway {
 
     private final static String MESSAGE_OK = "ok";
 
-    @Value("${hubuco.domain.key}")
     private String apiKey;
 
-    @Value("${hubuco.domain.timeout}")
     private Integer timeout;
 
-    @Autowired
     private EmailValidatorClient emailValidatorClient;
+
+    @Autowired
+    public EmailValidatorGatewayImpl(EmailValidatorClient emailValidatorClient,
+                                     @Value("${hubuco.domain.key}") String apiKey,
+                                     @Value("${hubuco.domain.timeout}") Integer timeout) {
+
+        this.emailValidatorClient = emailValidatorClient;
+        this.apiKey = apiKey;
+        this.timeout = timeout;
+    }
 
     @Override
     public boolean isInvalidEmail(String email) {

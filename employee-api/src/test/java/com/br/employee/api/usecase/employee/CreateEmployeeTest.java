@@ -14,7 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateEmployeeTest {
@@ -37,7 +37,11 @@ public class CreateEmployeeTest {
     public void shouldCreateEmployee() {
 
         Employee employeeInput = buildEmployee();
+
         createEmployee.execute(employeeInput);
+
+        verify(employeeRepoGateway, times(1)).saveNewEmployee(employeeInput);
+        verify(emailValidatorGateway, times(1)).isInvalidEmail(employeeInput.getEmail());
     }
 
     @Test(expected = EmployeeAlreadyExistsException.class)
@@ -62,10 +66,10 @@ public class CreateEmployeeTest {
 
     private Employee buildEmployee() {
 
-        Employee employeeInput = new Employee();
-        employeeInput.setName("Meu nome");
-        employeeInput.setEmail("meuemail@email.com");
-        employeeInput.setDepartament(Departament.ARCHITECTURE);
-        return employeeInput;
+        return Employee.builder()
+            .name("Meu nome")
+            .email("meuemail@email.com")
+            .departament(Departament.ARCHITECTURE)
+            .build();
     }
 }

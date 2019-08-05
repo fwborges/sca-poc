@@ -10,8 +10,13 @@ import java.util.List;
 @UseCase
 public class GetListOfAllEmployees {
 
-    @Autowired
     private EmployeeRepoGateway employeeRepoGateway;
+
+    @Autowired
+    public GetListOfAllEmployees(EmployeeRepoGateway employeeRepoGateway) {
+
+        this.employeeRepoGateway = employeeRepoGateway;
+    }
 
     public List<Employee> execute() {
 

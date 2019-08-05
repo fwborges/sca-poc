@@ -10,35 +10,67 @@ public class Employee {
 
     private Departament departament;
 
-    public String getId() {
-        return id;
+    Employee(String id, String name, String email, Departament departament) {
+
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.departament = departament;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Departament getDepartament() {
         return departament;
     }
 
-    public void setDepartament(Departament departament) {
-        this.departament = departament;
+    public static EmployeeBuilder builder() {
+
+        return new EmployeeBuilder();
+    }
+
+    public static class EmployeeBuilder {
+
+        private String id;
+        private String name;
+        private String email;
+        private Departament departament;
+
+        EmployeeBuilder() {
+        }
+
+        public EmployeeBuilder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public EmployeeBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public EmployeeBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public EmployeeBuilder departament(Departament departament) {
+            this.departament = departament;
+            return this;
+        }
+
+        public Employee build() {
+            return new Employee(id, name, email, departament);
+        }
     }
 }
