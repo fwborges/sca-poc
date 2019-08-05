@@ -10,6 +10,8 @@ public class Employee {
 
     private Departament departament;
 
+    public Employee() {}
+
     Employee(String id, String name, String email, Departament departament) {
 
         this.id = id;
@@ -32,6 +34,22 @@ public class Employee {
 
     public Departament getDepartament() {
         return departament;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDepartament(Departament departament) {
+        this.departament = departament;
     }
 
     public static EmployeeBuilder builder() {
