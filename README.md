@@ -16,14 +16,14 @@
 P.S.: Tradeoff using dependency injection and IOC by Spring on UseCases classes.
 
 #### Swagger URL
-* http://localhost:8080/swagger-ui.html#/
+* http://localhost:8080/swagger-ui.html
 
 ### Config Server URL
 * http://localhost:8888/employee-api/default
 
 ### Mongo-express (GUI)
 * Run docker-compose up mongo-express
-* URL: http://localhost:8081
+* URL -> http://localhost:8081
 
 ### References and Study Guide
 * https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
