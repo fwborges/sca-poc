@@ -1,0 +1,26 @@
+.monitoramento-wrapper .box {
+    position: absolute;
+    top: 20%;
+    opacity: 1;
+    float: left;
+    padding: 60px 50px 40px 50px;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    z-index: 5;
+    max-width: 700px;
+    border: ridge;
+  }
+  
+.monitoramento-wrapper .formulario {
+    min-width: 100%;
+    max-width: 700px;
+    width: 100%;
+}
+
+.btn-block {
+    width: 100%;
+}

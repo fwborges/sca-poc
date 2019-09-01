@@ -1,0 +1,32 @@
+<div class="monitoramento-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="box">
+          <mat-card-header>
+            <mat-card-title>Monitoramento Barragem</mat-card-title>
+          </mat-card-header>
+      
+          <form class="formulario">
+      
+            <mat-card-content>
+                    
+                <div style="display: block">
+                        <canvas mdbChart
+                            [chartType]="chartType"
+                            [datasets]="chartDatasets"
+                            [labels]="chartLabels"
+                            [colors]="chartColors"
+                            [options]="chartOptions"
+                            [legend]="true"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                        </canvas>
+                </div>
+                
+                <button mat-raised-button color="accent" class="btn-block">ATIVAR ALARME</button>
+            </mat-card-content>
+      
+          
+          </form>
+        </mat-card>
+
+</div>
+      
