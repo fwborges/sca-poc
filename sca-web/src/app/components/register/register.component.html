@@ -15,14 +15,6 @@
           <input matInput placeholder="Senha">
         </mat-form-field>
 
-        <mat-form-field class="formulario-fullwidth">
-          <mat-label>Escolha seu departamento</mat-label>
-          <mat-select [(value)]="selected">
-            <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
       </mat-card-content>
 
       <button mat-stroked-button color="accent" class="btn-block">Cadastrar</button>

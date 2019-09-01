@@ -56,22 +56,4 @@ public class EmployeeController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("list-by-departament")
-    public List<EmployeeResponse> getAllEmployessByDepartament(@RequestParam DepartamentRequestOpt departament) {
-
-        List<Employee> employees = getListOfEmployeesByDepartament.execute(Departament.valueOf(departament.name()));
-
-        return employees
-                .stream()
-                .map(employee -> mapper.map(employee, EmployeeResponse.class))
-                .collect(Collectors.toList());
-    }
-
-    @DeleteMapping("{email}/remove")
-    public ResponseEntity<Void> removeEmployee(@PathVariable String email) {
-
-        removeEmployee.execute(email);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }

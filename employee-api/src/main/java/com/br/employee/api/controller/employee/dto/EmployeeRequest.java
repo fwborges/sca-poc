@@ -9,13 +9,14 @@ import javax.validation.constraints.NotNull;
 public class EmployeeRequest {
 
     @NotNull
-    @NotEmpty(message = "Name is required")
+    @NotEmpty(message = "Nome é obrigatório")
     private String name;
 
     @NotNull
-    @NotEmpty(message = "Email is required")
+    @NotEmpty(message = "Email é obrigatório")
     private String email;
 
     @NotNull
-    private DepartamentRequestOpt departament;
+    @NotEmpty(message = "Senha é obrigatória")
+    private String password;
 }
