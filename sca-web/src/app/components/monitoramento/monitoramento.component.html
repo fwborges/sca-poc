@@ -8,20 +8,21 @@
       
             <mat-card-content>
                     
-                <div style="display: block">
-                        <canvas mdbChart
-                            [chartType]="chartType"
-                            [datasets]="chartDatasets"
-                            [labels]="chartLabels"
-                            [colors]="chartColors"
-                            [options]="chartOptions"
-                            [legend]="true"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)">
-                        </canvas>
+                <div class="formulario">
+                  <canvas baseChart width="800" height="300"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    [plugins]="lineChartPlugins"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+                  </canvas>
                 </div>
                 
-                <button mat-raised-button color="accent" class="btn-block">ATIVAR ALARME</button>
+                <button mat-raised-button color="accent" class="btn-block" (click)="adicionarRegistro()">ATIVAR ALARME</button>
             </mat-card-content>
       
           

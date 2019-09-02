@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, BaseChartDirective, Label } from 'ng2-charts';
+import * as pluginAnnotations from 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-monitoramento',
@@ -6,58 +9,132 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monitoramento.component.css']
 })
 export class MonitoramentoComponent implements OnInit {
-  public chartType = 'line';
-
-  numero = 5;
-
-  public chartDatasets: Array<any> = [
-    { data: [5,50,10,7,20,25], label: 'Barragem 1' },
-    { data: [2,4,6,65,2,34,32,65], label: 'Barragem 2' }
+  public lineChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
   ];
-
-  public chartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-  public chartColors: Array<any> = [
-    {
-      backgroundColor: 'rgba(105, 0, 132, .2)',
-      borderColor: 'rgba(200, 99, 132, .7)',
-      borderWidth: 2,
+  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      xAxes: [{}],
+      yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+        },
+        {
+          id: 'y-axis-1',
+          position: 'right',
+          gridLines: {
+            color: 'rgba(255,0,0,0.3)',
+          },
+          ticks: {
+            fontColor: 'red',
+          }
+        }
+      ]
     },
-    {
-      backgroundColor: 'rgba(0, 137, 132, .2)',
-      borderColor: 'rgba(0, 10, 130, .7)',
-      borderWidth: 2,
+    annotation: {
+      annotations: [
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: 'March',
+          borderColor: 'orange',
+          borderWidth: 2,
+          label: {
+            enabled: true,
+            fontColor: 'orange',
+            content: 'LineAnno'
+          }
+        },
+      ],
+    },
+  };
+  public lineChartColors: Color[] = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // red
+      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'red',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+  public lineChartPlugins = [pluginAnnotations];
 
-  public chartOptions: any = {
-    responsive: true
-  };
+  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   constructor() { }
 
-  
-
   ngOnInit() {
-    console.log(this.numero++);
-    this.chartDatasets[0].data.push(this.numero++);
-    console.log(this.chartDatasets[0].data);
-    this.lerSensores();
   }
 
-  lerSensores() {
-
-    setInterval(function() {
-     
-      this.chartDatasets = [
-        { data: Array.from({length: 40}, () => Math.floor(Math.random() * 40)), label: 'Barragem 1' },
-        { data: Array.from({length: 40}, () => Math.floor(Math.random() * 40)), label: 'Barragem 2' }
-      ];
-    }, 5000);
+  public adicionarRegistro(): void {
+    for (let i = 0; i < this.lineChartData.length; i++) {
+      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
+        this.lineChartData[i].data[j] = this.generateNumber(i);
+      }
+    }
+    this.chart.update();
   }
 
-  
+  private generateNumber(i: number) {
+    return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
+  }
 
-  public chartClicked(e: any): void { }
-  public chartHovered(e: any): void { }
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public hideOne() {
+    const isHidden = this.chart.isDatasetHidden(1);
+    this.chart.hideDataset(1, !isHidden);
+  }
+
+  public pushOne() {
+    this.lineChartData.forEach((x, i) => {
+      const num = this.generateNumber(i);
+      const data: number[] = x.data as number[];
+      data.push(num);
+    });
+    this.lineChartLabels.push(`Label ${this.lineChartLabels.length}`);
+  }
+
+  public changeColor() {
+    this.lineChartColors[2].borderColor = 'green';
+    this.lineChartColors[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
+  }
+
+  public changeLabel() {
+    this.lineChartLabels[2] = ['1st Line', '2nd Line'];
+    // this.chart.update();
+  }
 }

@@ -11,13 +11,13 @@
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
     z-index: 5;
-    max-width: 700px;
+    max-width: 800px;
     border: ridge;
   }
   
 .monitoramento-wrapper .formulario {
     min-width: 100%;
-    max-width: 700px;
+    max-width: 800px;
     width: 100%;
 }
 

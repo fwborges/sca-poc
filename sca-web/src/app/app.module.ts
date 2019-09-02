@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 
-import { MDBBootstrapModule, ChartsModule } from 'angular-bootstrap-md';
+import { ChartsModule } from 'ng2-charts';
+
 
 /* Routing */
 import { AppRoutingModule } from './app-routing.module';
