@@ -39,5 +39,5 @@ networks:
   employee-network:
     ipam:
       config:
-        - subnet: 20.30.0.0/16
+        - subnet: 20.10.0.0/16
   

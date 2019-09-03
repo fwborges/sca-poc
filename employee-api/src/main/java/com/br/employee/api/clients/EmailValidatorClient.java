@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface EmailValidatorClient {
 
     @GetMapping
-    EmailResponse validateEmail(@RequestParam String email, @RequestParam String api, @RequestParam Integer timeout);
+    EmailResponse validateEmail(@RequestParam("email") String email, @RequestParam("api") String api, @RequestParam("timeout") Integer timeout);
 }

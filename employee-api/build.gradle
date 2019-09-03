@@ -7,6 +7,11 @@ plugins {
     id 'maven'
 }
 
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
 repositories {
     mavenLocal()
     maven {
@@ -14,7 +19,14 @@ repositories {
     }
 }
 
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.SR1'
+    }
+}
+
 dependencies {
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.1.2.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-mongodb:2.1.6.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web:2.1.6.RELEASE'
     compile 'org.springframework.cloud:spring-cloud-starter-config:2.1.0.RELEASE'
@@ -23,7 +35,8 @@ dependencies {
     compile 'io.springfox:springfox-swagger-ui:2.9.2'
     compile 'io.springfox:springfox-swagger2:2.9.2'
     testCompile 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
-    compileOnly 'org.projectlombok:lombok:1.18.8'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: "1.18.2"
+    '105iannotationProcessor group: 'org.projectlombok', name: 'lombok', version: "1.18.2"'
 }
 
 group = 'com.br'
