@@ -2,8 +2,6 @@ package com.br.puc.modulosegurancacomunicacao.dtos;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class SensorResponse {
 
@@ -11,5 +9,5 @@ public class SensorResponse {
 
     private Integer valor;
 
-    private LocalDateTime dataOcorrencia;
+    private String dataOcorrencia;
 }

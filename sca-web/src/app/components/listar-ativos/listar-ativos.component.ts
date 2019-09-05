@@ -11,6 +11,8 @@ export class ListarAtivosComponent implements OnInit {
 
   equipamentos = [];
 
+  displayedColumns: string[] = ['id', 'tipoEquipamento', 'anoFabricacao', 'modeloEquipamento', 'dataManutencao', 'descricao'];
+
   constructor(private equipamentService: EquipamentService,  private snackBar: MatSnackBar) { }
 
   ngOnInit() {

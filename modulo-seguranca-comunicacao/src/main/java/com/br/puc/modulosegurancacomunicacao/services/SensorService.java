@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,10 +32,17 @@ public class SensorService {
 
     public List<SensorResponse> lerUltimoRegistroSensor() {
 
-        List<LeituraSensor> leituraSensorList = repository.findFirst2ByMedidaInOrderByDataOcorrenciaDesc(Arrays.asList("sismo", "deslocamento"));
+        List<LeituraSensor> leituraSensorList = repository.findFirst2ByMedidaInOrderByDataOcorrenciaDesc(Arrays.asList("Sismo", "Deslocamento"));
 
         return leituraSensorList.stream()
-                .map(leituraSensor -> mapper.map(leituraSensor, SensorResponse.class))
+                .map(leituraSensor -> {
+
+                    SensorResponse map = mapper.map(leituraSensor, SensorResponse.class);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                    map.setDataOcorrencia(leituraSensor.getDataOcorrencia().format(formatter));
+
+                    return map;
+                })
                 .collect(Collectors.toList());
     }
 }

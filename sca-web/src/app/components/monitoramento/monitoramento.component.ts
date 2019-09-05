@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import { MonitorService } from 'src/shared/services/monitor.service';
 
 @Component({
   selector: 'app-monitoramento',
@@ -9,16 +10,18 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
   styleUrls: ['./monitoramento.component.css']
 })
 export class MonitoramentoComponent implements OnInit {
+
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
+    { data: [], label: 'Sismo' },
+    { data: [], label: 'Deslocamento' },
   ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+  public lineChartLabels: Label[] = [];
+
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
+
       xAxes: [{}],
       yAxes: [
         {
@@ -56,9 +59,9 @@ export class MonitoramentoComponent implements OnInit {
     },
   };
   public lineChartColors: Color[] = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
+    { // red
+      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'red',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
@@ -71,14 +74,6 @@ export class MonitoramentoComponent implements OnInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
   public lineChartLegend = true;
@@ -87,21 +82,36 @@ export class MonitoramentoComponent implements OnInit {
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
-  constructor() { }
+  constructor(private monitorService: MonitorService) { }
 
   ngOnInit() {
+
+    setInterval(() => {
+      this.adicionarRegistro();
+    }, 20000);
   }
 
   public adicionarRegistro(): void {
+    
+    this.monitorService.lerSensores()
+    .subscribe(
+      (sucess) => {
+        this.lineChartLabels.push(sucess[0].dataOcorrencia);
 
-    console.log(sessionStorage.getItem('token'));
-
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        this.lineChartData[i].data[j] = this.generateNumber(i);
+        for (let i = 0; i < sucess.length; i++) {
+          if(this.lineChartData[i].label === sucess[i].medida) {
+            console.log(sucess[i]);
+            this.lineChartData[i].data.push(sucess[i].valor);
+          }
+        }
+        this.chart.update();
+      },
+      (err) => {
+        console.log('erro');
+        console.log(err);
       }
-    }
-    this.chart.update();
+    );
+    
   }
 
   private generateNumber(i: number) {
