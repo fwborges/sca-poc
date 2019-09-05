@@ -1,17 +1,6 @@
 version: "3.6"
 services:
 
-  employee-api:
-    image: employee-api:latest
-    build: ./employee-api
-    ports:
-      - "8080:8080"
-    networks: 
-      - employee-network
-    depends_on:
-      - mongo
-      - config-server
-
   mongo:
     image: mongo:latest
     networks:
@@ -26,6 +15,14 @@ services:
       - employee-network
     ports:
       - "8888:8888"
+
+  active-mq:
+    image: njmittet/alpine-activemq
+    networks:
+      - employee-network
+    ports:
+      - 8161:8161
+      - 61616:61616
 
   mongo-express:
     image: mongo-express:latest

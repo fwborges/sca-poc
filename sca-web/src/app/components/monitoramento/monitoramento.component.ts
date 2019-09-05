@@ -93,6 +93,9 @@ export class MonitoramentoComponent implements OnInit {
   }
 
   public adicionarRegistro(): void {
+
+    console.log(sessionStorage.getItem('token'));
+
     for (let i = 0; i < this.lineChartData.length; i++) {
       for (let j = 0; j < this.lineChartData[i].data.length; j++) {
         this.lineChartData[i].data[j] = this.generateNumber(i);

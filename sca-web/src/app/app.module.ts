@@ -22,12 +22,14 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 /* Components */
 import { LogInComponent } from './components/log-in/log-in.component';
 import { RegisterComponent } from './components/register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material';
 import { HomeComponent } from './components/home/home.component';
 import { AtivosComponent } from './components/ativos/ativos.component';
 import { MonitoramentoComponent } from './components/monitoramento/monitoramento.component';
 import { ListarAtivosComponent } from './components/listar-ativos/listar-ativos.component';
+
+import { AuthInterceptor } from '../shared/services/auth.interceptor';
 
 
 @NgModule({
@@ -54,7 +56,11 @@ import { ListarAtivosComponent } from './components/listar-ativos/listar-ativos.
     MatSnackBarModule,
     ChartsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

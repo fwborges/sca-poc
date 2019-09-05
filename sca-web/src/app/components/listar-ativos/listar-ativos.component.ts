@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EquipamentService } from 'src/shared/services/equipament.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-listar-ativos',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListarAtivosComponent implements OnInit {
 
-  constructor() { }
+  equipamentos = [];
+
+  constructor(private equipamentService: EquipamentService,  private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.buscarTodosEquipamentos();
+  }
+
+  buscarTodosEquipamentos() {
+
+    this.equipamentService.buscarTodosEquipamentos()
+    .subscribe(
+      (sucess) => {
+        console.log(sucess);
+        this.equipamentos = sucess;
+      },
+      (err) => {
+        this.snackBar.open(err.error.response);
+      }
+    );
   }
 
 }

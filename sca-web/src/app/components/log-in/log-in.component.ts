@@ -22,17 +22,20 @@ export class LogInComponent implements OnInit {
 
   loginUser(login: string, password: string) {
 
-    let loginRequest = {login, password};
-
-    this.loginService.login(loginRequest)
+    this.loginService.login(login, password)
       .subscribe(
         (sucess) => {
+          this.setSession(sucess);
           this.router.navigate(['home']);
         },
         (err) => {
           this.snackBar.open(err.error.response);
         }
       );
+  }
+
+  private setSession(authResult) {
+     sessionStorage.setItem('token', authResult.token);
   }
 
 }

@@ -9,7 +9,7 @@
         <mat-card-content>
             <mat-form-field class="formulario-fullwidth">
                 <mat-label>Selecione o tipo do equipamento</mat-label>
-                <mat-select [(value)]="equipamento.tipoEquipamento" required="true">
+                <mat-select #tipoEquipamento required="true">
                     <mat-option value="caminhao">Caminhão</mat-option>
                     <mat-option value="esteira">Esteira de Transporte</mat-option>
                     <mat-option value="triturador">Triturador</mat-option>
@@ -17,21 +17,20 @@
             </mat-form-field>
   
           <mat-form-field class="formulario-fullwidth">
-            <input matInput placeholder="Modelo equipamento" [(value)]="equipamento.modeloEquipamento" required="true" >
+            <input matInput placeholder="Modelo equipamento" #modeloEquipamento required="true" >
           </mat-form-field>
 
           <mat-form-field class="formulario-fullwidth">
-            <input matInput placeholder="Ano de fabricação" [(value)]="equipamento.anoEquipamento" required="true">
+            <input matInput placeholder="Ano de fabricação" #anoFabricacao required="true">
           </mat-form-field>
 
           <mat-form-field class="formulario-fullwidth">
-            <textarea matInput placeholder="Descrição" [(value)]="equipamento.descricaoEquipamento" required="true"></textarea>
+            <textarea matInput placeholder="Descrição" #descricao required="true"></textarea>
           </mat-form-field>
   
         </mat-card-content>
   
-        <button mat-stroked-button color="accent" class="btn-block">Cadastrar</button>
-  
+        <button mat-stroked-button color="accent" class="btn-block" (click)="salvarAtivo(tipoEquipamento.value, modeloEquipamento.value, anoFabricacao.value, descricao.value)">Cadastrar</button>
       </form>
     </mat-card>
   </div>

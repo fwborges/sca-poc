@@ -15,7 +15,6 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   register(request): Observable<any> {
-    console.log("entrou service");
     return this.http.post<any>(apiUrl, request);
   }
 

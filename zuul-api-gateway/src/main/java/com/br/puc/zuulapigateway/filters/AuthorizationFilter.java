@@ -48,7 +48,7 @@ public class AuthorizationFilter extends ZuulFilter {
 
         HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
 
-        log.info("Request -> {} request URI -> {}", request, request.getRequestURI());
+        log.debug("Request -> {} request URI -> {}", request, request.getRequestURI());
 
         validadorToken.validarToken(request);
 
