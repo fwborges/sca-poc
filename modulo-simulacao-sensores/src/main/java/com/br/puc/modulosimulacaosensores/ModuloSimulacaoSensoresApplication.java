@@ -24,8 +24,8 @@ public class ModuloSimulacaoSensoresApplication implements CommandLineRunner {
 
 		Random random = new Random();
 
-		jmsTemplate.convertAndSend("sensor.queue", "{medida: 'deslocamento', valor: '" + random.nextInt(10) + "'}");
-		jmsTemplate.convertAndSend("sensor.queue", "{medida: 'sismo', valor: " + random.nextInt(10) + "'}");
+		jmsTemplate.convertAndSend("sensor.queue", "{medida: 'deslocamento', valor: " + random.nextInt(10) + "}");
+		jmsTemplate.convertAndSend("sensor.queue", "{medida: 'sismo', valor: " + random.nextInt(10) + "}");
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class ModuloSimulacaoSensoresApplication implements CommandLineRunner {
 				simular();
 			}
 
-		}, 1000, 5000);
+		}, 1000, 30000);
 
 
 	}

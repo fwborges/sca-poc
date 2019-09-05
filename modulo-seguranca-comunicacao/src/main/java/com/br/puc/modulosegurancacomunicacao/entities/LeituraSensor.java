@@ -14,11 +14,12 @@ public class LeituraSensor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nome_medida")
     private String medida;
 
+    @Column(name = "valor_medida")
     private Integer valor;
 
-    private boolean transmitida;
-
+    @Column(name = "data_ocorrencia")
     private LocalDateTime dataOcorrencia;
 }
