@@ -5,17 +5,17 @@
         <mat-card-title>Log in</mat-card-title>
       </mat-card-header>
   
-      <form class="formulario">
+      <form class="formulario" >
         <mat-card-content>
           <mat-form-field class="formulario-fullwidth">
-            <input matInput placeholder="Usuário" name="login" #login>
+            <input matInput placeholder="Usuário" name="login" [(ngModel)]="login" >
           </mat-form-field>
   
           <mat-form-field class="formulario-fullwidth">
-            <input matInput type="password" placeholder="Senha" name="pass" #password>
+            <input matInput type="password" placeholder="Senha" name="pass" [(ngModel)]="password">
           </mat-form-field>
         </mat-card-content>
-        <button mat-stroked-button color="accent" class="btn-block" (click)="loginUser(login.value, password.value)">Log in</button>
+        <button mat-stroked-button color="accent" class="btn-block" (click)="loginUser()">Log in</button>
       </form>
     </mat-card>
   

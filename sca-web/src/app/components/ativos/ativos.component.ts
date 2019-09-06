@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EquipamentService } from 'src/shared/services/equipament.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ativos',
@@ -9,9 +10,14 @@ import { MatSnackBar } from '@angular/material';
 })
 export class AtivosComponent implements OnInit {
 
-  constructor(private equipamentService: EquipamentService, private snackBar: MatSnackBar) { }
+  constructor(private equipamentService: EquipamentService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
+    let autenticado = sessionStorage.getItem('token');
+
+    if (autenticado === null || autenticado === undefined) {
+        this.router.navigate(['login']);
+    }
   }
 
   salvarAtivo(tipoEquipamento: string, modeloEquipamento: string, anoFabricacao: string, descricao: string) {

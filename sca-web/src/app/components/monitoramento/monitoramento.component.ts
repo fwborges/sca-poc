@@ -3,6 +3,7 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { MonitorService } from 'src/shared/services/monitor.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-monitoramento',
@@ -82,9 +83,14 @@ export class MonitoramentoComponent implements OnInit {
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
-  constructor(private monitorService: MonitorService) { }
+  constructor(private monitorService: MonitorService, private router: Router) { }
 
   ngOnInit() {
+    let autenticado = sessionStorage.getItem('token');
+
+    if (autenticado === null || autenticado === undefined) {
+        this.router.navigate(['login']);
+    }
 
     setInterval(() => {
       this.adicionarRegistro();
