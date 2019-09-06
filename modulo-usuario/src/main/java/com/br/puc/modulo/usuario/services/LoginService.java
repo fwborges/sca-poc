@@ -3,6 +3,8 @@ package com.br.puc.modulo.usuario.services;
 import com.br.puc.modulo.usuario.dtos.login.LoginRequest;
 import com.br.puc.modulo.usuario.dtos.login.LoginResponse;
 import com.br.puc.modulo.usuario.entities.Usuario;
+import com.br.puc.modulo.usuario.exceptions.SenhaIncorretaException;
+import com.br.puc.modulo.usuario.exceptions.UsuarioNaoEncontradoException;
 import com.br.puc.modulo.usuario.repositories.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class LoginService {
         Usuario usuario = usuarioRepository.findByLogin(loginRequest.getLogin());
 
         if(usuario == null) {
-            throw new RuntimeException("Usuario não encontrado");
+            throw new UsuarioNaoEncontradoException("Usuario não encontrado");
         }
 
         boolean senhaValida = senhaService.validarHashSenha(loginRequest.getSenha(), usuario.getSenha());
@@ -37,10 +39,10 @@ public class LoginService {
         if(senhaValida) {
 
             String token = tokenService.gerarToken(loginRequest.getLogin());
-            return LoginResponse.builder().token(token).build();
+            return LoginResponse.builder().token(token).nome(usuario.getNome()).build();
         } else {
 
-            throw new RuntimeException("Senha inválida");
+            throw new SenhaIncorretaException("Senha inválida");
         }
     }
 

@@ -21,10 +21,14 @@ export class AtivosComponent implements OnInit {
     this.equipamentService.salvar(equipamento)
     .subscribe(
       (sucess) => {
-        this.snackBar.open('Equipamento ' + modeloEquipamento + ' criado com sucesso!');
+        this.snackBar.open('Equipamento ' + modeloEquipamento + ' criado com sucesso!', 'Fechar', {
+          duration: 2000,
+        });
       },
       (err) => {
-        this.snackBar.open(err.error.response);
+        this.snackBar.open(err.error.response, 'Fechar', {
+          duration: 2000,
+        });
       }
     );
   }

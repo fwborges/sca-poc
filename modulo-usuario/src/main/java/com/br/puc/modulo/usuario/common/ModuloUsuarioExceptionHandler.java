@@ -1,5 +1,6 @@
 package com.br.puc.modulo.usuario.common;
 
+import com.br.puc.modulo.usuario.exceptions.ErroMensagem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,17 +23,19 @@ public class ModuloUsuarioExceptionHandler {
 
         List<String> errors = new ArrayList<>();
         for (FieldError error : e.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " + error.getDefaultMessage());
+            errors.add(error.getDefaultMessage());
         }
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<?> illegalArgumentException(IllegalArgumentException e) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> runTimeException(Exception e) {
 
         log.error("Error", e.getMessage());
 
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        ErroMensagem erro = new ErroMensagem(e.getMessage());
+
+        return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
     }
 }

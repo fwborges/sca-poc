@@ -16,8 +16,7 @@ public class AtivoRequest {
     @NotEmpty(message = "Modelo de equipamentoé obrigatório")
     private String modeloEquipamento;
 
-    @NotNull
-    @NotEmpty(message = "Ano de fabricação é obrigatório")
+    @NotNull(message = "Ano de fabricação é obrigatório")
     private Integer anoFabricacao;
 
     @NotNull

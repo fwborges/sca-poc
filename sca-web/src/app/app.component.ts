@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-material-login-template';
+  title = 'SCA - Sistema de Controle Ambiental';
+  autenticado: boolean;
+  nome = sessionStorage.getItem('username');
+
+  isAutenticado() {
+    this.autenticado = sessionStorage.getItem('token') === undefined;
+  }
+
+  logout() {
+    sessionStorage.setItem('token', undefined);
+    this.autenticado = false;
+  }
+
 }

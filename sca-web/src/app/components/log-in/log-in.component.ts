@@ -29,13 +29,32 @@ export class LogInComponent implements OnInit {
           this.router.navigate(['home']);
         },
         (err) => {
-          this.snackBar.open(err.error.response);
+
+          if(err.error.response !== undefined) {
+            this.exibirMensagem(err.error.response);
+          } else {
+
+            if(err.error[0] !== undefined) {
+              this.exibirMensagem(err.error[0]);
+            }
+
+            if(err.error[1] !== undefined) {
+              this.exibirMensagem(err.error[1]);
+            }
+          }
         }
       );
   }
 
+  exibirMensagem(message: string) {
+    this.snackBar.open(message, 'Fechar', {
+      duration: 2000,
+    });
+  }
+
   private setSession(authResult) {
      sessionStorage.setItem('token', authResult.token);
+     sessionStorage.setItem('username', authResult.nome);
   }
 
 }

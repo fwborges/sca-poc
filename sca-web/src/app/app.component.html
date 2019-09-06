@@ -3,11 +3,14 @@
   <div>SCA - Sistema de Controle Ambiental</div>
 
   <span class="nav-tool-items">
-    <a mat-button routerLink="home" routerLinkActive="active">Home</a>
+    <!-- <a mat-button routerLink="home" class="material-icons" routerLinkActive="active" *ngIf="this.autenticado">Home</a> -->
+    <a class="material-icons" routerLink="home" routerLinkActive="active">home</a>
   </span>
   <span class="nav-tool-items">
-    <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Cadastre-se</a>
+    <div>Olá, {{nome}}</div>
+    <a mat-button routerLink="logout" routerLinkActive="active" *ngIf="this.autenticado" (click)="logout()">Logout</a>
+    <a mat-button routerLink="login" routerLinkActive="active" *ngIf="!this.autenticado">Log in</a>
+    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active" *ngIf="!this.autenticado">Cadastre-se</a>
   </span>
 </mat-toolbar>
 

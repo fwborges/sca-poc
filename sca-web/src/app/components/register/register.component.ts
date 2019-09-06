@@ -31,13 +31,29 @@ export class RegisterComponent implements OnInit {
     this.registerService.register(registerRequest)
       .subscribe(
         (sucess) => {
-          console.log(sucess);
           this.router.navigate(['login']);
         },
         (err) => {
-          this.snackBar.open(err.error.response);
+          if(err.error.response !== undefined) {
+            this.exibirMensagem(err.error.response);
+          } else {
+
+            if(err.error[0] !== undefined) {
+              this.exibirMensagem(err.error[0]);
+            }
+
+            if(err.error[1] !== undefined) {
+              this.exibirMensagem(err.error[1]);
+            }
+          }
         }
       );
+  }
+
+  exibirMensagem(message: string) {
+    this.snackBar.open(message, 'Fechar', {
+      duration: 2000,
+    });
   }
 
 }

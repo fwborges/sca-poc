@@ -24,7 +24,6 @@ export class ListarAtivosComponent implements OnInit {
     this.equipamentService.buscarTodosEquipamentos()
     .subscribe(
       (sucess) => {
-        console.log(sucess);
         this.equipamentos = sucess;
       },
       (err) => {

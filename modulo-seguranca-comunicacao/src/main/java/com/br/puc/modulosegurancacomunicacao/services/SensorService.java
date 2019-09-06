@@ -38,7 +38,7 @@ public class SensorService {
                 .map(leituraSensor -> {
 
                     SensorResponse map = mapper.map(leituraSensor, SensorResponse.class);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
                     map.setDataOcorrencia(leituraSensor.getDataOcorrencia().format(formatter));
 
                     return map;
