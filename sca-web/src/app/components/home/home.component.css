@@ -19,3 +19,9 @@
     border: ridge;
     margin-right: 1%;
 }
+
+md-icon.size-16 {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+}

@@ -26,6 +26,7 @@ export class LogInComponent implements OnInit {
       .subscribe(
         (sucess) => {
           this.setSession(sucess);
+          this.router.navigate([]);
           this.router.navigate(['home']);
         },
         (err) => {
