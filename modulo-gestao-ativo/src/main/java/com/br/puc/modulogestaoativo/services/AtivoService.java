@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,13 @@ public class AtivoService {
         List<Ativo> ativos = repository.findAll();
 
         return ativos.stream()
-                .map(ativo -> mapper.map(ativo, AtivoResponse.class))
+                .map(ativo -> {
+
+                    AtivoResponse ativoResponse = mapper.map(ativo, AtivoResponse.class);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    ativoResponse.setProximaManutencaoPreventiva(ativo.getProximaManutencaoPreventiva().format(formatter));
+                    return ativoResponse;
+                })
                 .collect(Collectors.toList());
     }
 }

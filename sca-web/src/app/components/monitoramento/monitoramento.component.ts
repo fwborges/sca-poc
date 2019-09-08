@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class MonitoramentoComponent implements OnInit {
 
+  public sensorDesconectado = false;
+
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Sismo' },
     { data: [], label: 'Deslocamento' },
@@ -111,10 +113,10 @@ export class MonitoramentoComponent implements OnInit {
           }
         }
         this.chart.update();
+        this.sensorDesconectado = false;
       },
       (err) => {
-        console.log('erro');
-        console.log(err);
+        this.sensorDesconectado = true;
       }
     );
     

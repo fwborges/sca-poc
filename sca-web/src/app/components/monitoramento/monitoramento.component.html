@@ -5,7 +5,9 @@
           </mat-card-header>
       
           <form class="formulario">
-      
+            <div class="alert alert-danger fa-blink" role="alert" *ngIf="sensorDesconectado">
+              Sensor Desconectado!! Favor verificar.
+            </div>
             <mat-card-content>
                     
                 <div class="formulario">
@@ -21,8 +23,6 @@
                     (chartClick)="chartClicked($event)">
                   </canvas>
                 </div>
-                
-                <button mat-raised-button color="accent" class="btn-block" (click)="adicionarRegistro()">ATIVAR ALARME</button>
             </mat-card-content>
       
           

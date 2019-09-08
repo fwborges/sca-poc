@@ -11,7 +11,7 @@
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
     z-index: 5;
-    max-width: 800px;
+    max-width: 1200px;
     border: ridge;
   }
   
@@ -19,6 +19,21 @@
     min-width: 100%;
     max-width: 800px;
     width: 100%;
+}
+
+.mat-cell, .mat-footer-cell {
+  color: rgba(0,0,0,.87);
+  min-width: 120px;
+  /* text-align: center; */
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  padding: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-right-style: solid;
+  border-right-width: 1px;
+  text-align: center;
 }
 
 table {

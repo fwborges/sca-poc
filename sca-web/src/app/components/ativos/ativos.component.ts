@@ -10,6 +10,13 @@ import { Router } from '@angular/router';
 })
 export class AtivosComponent implements OnInit {
 
+  public equipamento = {
+    tipoEquipamento: '',
+    modeloEquipamento: '',
+    anoFabricacao: '',
+    descricao: ''
+  };
+
   constructor(private equipamentService: EquipamentService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
@@ -20,16 +27,17 @@ export class AtivosComponent implements OnInit {
     }
   }
 
-  salvarAtivo(tipoEquipamento: string, modeloEquipamento: string, anoFabricacao: string, descricao: string) {
-
-    let equipamento = {tipoEquipamento, modeloEquipamento, anoFabricacao, descricao};
-
-    this.equipamentService.salvar(equipamento)
+  salvarAtivo() {
+    
+    this.equipamentService.salvar(this.equipamento)
     .subscribe(
       (sucess) => {
-        this.snackBar.open('Equipamento ' + modeloEquipamento + ' criado com sucesso!', 'Fechar', {
-          duration: 2000,
+        this.snackBar.open('Equipamento ' + this.equipamento.modeloEquipamento + ' criado com sucesso!', 'Fechar', {
+          duration: 15000,
         });
+
+        this.limparFormulario();
+
       },
       (err) => {
         this.snackBar.open(err.error.response, 'Fechar', {
@@ -37,5 +45,14 @@ export class AtivosComponent implements OnInit {
         });
       }
     );
+  }
+
+  limparFormulario() {
+    this.equipamento = {
+      tipoEquipamento: ' ',
+      modeloEquipamento: ' ',
+      anoFabricacao: ' ',
+      descricao: ' '
+    };
   }
 }

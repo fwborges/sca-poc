@@ -25,34 +25,33 @@ export class LogInComponent implements OnInit {
 
   loginUser() {
  
-    sessionStorage.setItem('token', 'authResult.token');
-    sessionStorage.setItem('username', 'Felipe');
+    // sessionStorage.setItem('token', 'authResult.token');
+    // sessionStorage.setItem('username', 'Felipe');
 
-     this.router.navigate(['home']);
+    //  this.router.navigate(['home']);
 
-    // this.loginService.login(login, password)
-    //   .subscribe(
-    //     (sucess) => {
-    //       this.setSession(sucess);
-    //       this.atualizarAutenticadoFlag();
-    //       this.router.navigate(['home']);
-    //     },
-    //     (err) => {
+    this.loginService.login(this.login, this.password)
+      .subscribe(
+        (sucess) => {
+          this.setSession(sucess);
+          this.router.navigate(['home']);
+        },
+        (err) => {
 
-    //       if(err.error.response !== undefined) {
-    //         this.exibirMensagem(err.error.response);
-    //       } else {
+          if(err.error.response !== undefined) {
+            this.exibirMensagem(err.error.response);
+          } else {
 
-    //         if(err.error[0] !== undefined) {
-    //           this.exibirMensagem(err.error[0]);
-    //         }
+            if(err.error[0] !== undefined) {
+              this.exibirMensagem(err.error[0]);
+            }
 
-    //         if(err.error[1] !== undefined) {
-    //           this.exibirMensagem(err.error[1]);
-    //         }
-    //       }
-    //     }
-    //   );
+            if(err.error[1] !== undefined) {
+              this.exibirMensagem(err.error[1]);
+            }
+          }
+        }
+      );
   }
 
   exibirMensagem(message: string) {
@@ -62,6 +61,7 @@ export class LogInComponent implements OnInit {
   }
 
   private setSession(authResult) {
+    console.log(authResult);
     sessionStorage.setItem('token', authResult.token);
     sessionStorage.setItem('username', authResult.nome);
   }

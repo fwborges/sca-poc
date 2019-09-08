@@ -2,11 +2,13 @@ package com.br.puc.modulosegurancacomunicacao.services;
 
 import com.br.puc.modulosegurancacomunicacao.dtos.SensorResponse;
 import com.br.puc.modulosegurancacomunicacao.entities.LeituraSensor;
+import com.br.puc.modulosegurancacomunicacao.exceptions.SensorDesconectadoException;
 import com.br.puc.modulosegurancacomunicacao.repositories.SensorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +36,7 @@ public class SensorService {
 
         List<LeituraSensor> leituraSensorList = repository.findFirst2ByMedidaInOrderByDataOcorrenciaDesc(Arrays.asList("Sismo", "Deslocamento"));
 
-        return leituraSensorList.stream()
+        List<SensorResponse> sensorResponses = leituraSensorList.stream()
                 .map(leituraSensor -> {
 
                     SensorResponse map = mapper.map(leituraSensor, SensorResponse.class);
@@ -44,5 +46,22 @@ public class SensorService {
                     return map;
                 })
                 .collect(Collectors.toList());
+
+        checarLeitoresConectados(sensorResponses);
+
+        return sensorResponses;
+    }
+
+    public void checarLeitoresConectados(List<SensorResponse> sensorResponses) {
+
+        SensorResponse response = sensorResponses.get(0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        LocalDateTime ultimaOcorrenciaRegistrada = LocalDateTime.from(formatter.parse(response.getDataOcorrencia()));
+
+        if(ultimaOcorrenciaRegistrada.plusSeconds(22).isBefore(LocalDateTime.now())) {
+            throw new SensorDesconectadoException("Não registros de leitura dos sensores, favor verificar");
+        }
+
     }
 }

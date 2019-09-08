@@ -17,7 +17,7 @@ public class AtivoResponse {
 
     private String descricao;
 
-    private LocalDate proximaManutencaoPreventiva;
+    private String proximaManutencaoPreventiva;
 
-    private LocalDate proximaManutencaoCorretiva;
+    private String proximaManutencaoCorretiva;
 }

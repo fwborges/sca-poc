@@ -15,11 +15,11 @@ export class ToolbarComponent implements OnInit {
   constructor(private router: Router) {
     this.router.events.subscribe((event:any) => {
       this.isAutenticado =  event.url !== 'login' && sessionStorage.getItem('token') !== (undefined || null);
+      this.nome = sessionStorage.getItem('username');
     });
   }
 
   ngOnInit() {
-    this.nome = sessionStorage.getItem('username');
   }
 
   logout() {
