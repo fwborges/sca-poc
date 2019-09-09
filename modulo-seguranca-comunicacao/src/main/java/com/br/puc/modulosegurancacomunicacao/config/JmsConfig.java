@@ -16,7 +16,7 @@ import javax.jms.ConnectionFactory;
 public class JmsConfig {
 
     //    @Value("${spring.activemq.broker-url}")
-    private String brokerUrl = "tcp://localhost:61616";
+    private String brokerUrl = "tcp://active-mq:61616";
 
     //    @Value("${spring.activemq.user}")
     private String user = "";

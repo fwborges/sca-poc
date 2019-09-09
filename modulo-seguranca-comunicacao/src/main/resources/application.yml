@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: modulo-seg-comunic
+
+server:
+  port: 8300
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-naming-server:8761/eureka

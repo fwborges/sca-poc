@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: modulo-usuario
+
+server:
+  port: 8100
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-naming-server:8761/eureka

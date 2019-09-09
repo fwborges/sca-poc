@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: modulo-ativos
+
+server:
+  port: 8200
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-naming-server:8761/eureka
