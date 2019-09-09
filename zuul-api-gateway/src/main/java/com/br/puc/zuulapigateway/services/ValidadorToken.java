@@ -1,5 +1,6 @@
 package com.br.puc.zuulapigateway.services;
 
+import com.br.puc.zuulapigateway.exceptions.UnauthorizedException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
@@ -7,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class ValidadorToken {
 
-    // EXPIRATION_TIME = 10 dias
-    static final long EXPIRATION_TIME = 860_000_000;
     static final String SECRET = "secret-puc-sca-poc";
     static final String TOKEN_PREFIX = "Bearer";
     static final String HEADER_STRING = "Authorization";
@@ -25,8 +24,10 @@ public class ValidadorToken {
                     .getSubject();
 
             if (user == null) {
-                throw new RuntimeException("JWT Invalido");
+                throw new UnauthorizedException("JWT Invalido");
             }
+        } else {
+            throw new UnauthorizedException("Usuário não autenticado");
         }
     }
 }

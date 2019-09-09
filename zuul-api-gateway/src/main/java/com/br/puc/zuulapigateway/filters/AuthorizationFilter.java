@@ -7,6 +7,7 @@ import com.netflix.zuul.exception.ZuulException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,13 +45,24 @@ public class AuthorizationFilter extends ZuulFilter {
     }
 
     @Override
-    public Object run() throws ZuulException {
+    public Object run() {
 
-        HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
 
         log.debug("Request -> {} request URI -> {}", request, request.getRequestURI());
 
-        validadorToken.validarToken(request);
+        try {
+            validadorToken.validarToken(request);
+        } catch (Exception exception) {
+            // blocks the request
+            ctx.setSendZuulResponse(false);
+
+            // response to client
+            ctx.setResponseBody("Requisição não autorizada");
+            ctx.getResponse().setHeader("Content-Type", "application/json;charset=UTF-8");
+            ctx.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
+        }
 
         return null;
     }
