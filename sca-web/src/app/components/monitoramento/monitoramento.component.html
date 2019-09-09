@@ -1,0 +1,33 @@
+<div class="monitoramento-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="box">
+          <mat-card-header>
+            <mat-card-title>Monitoramento Barragem</mat-card-title>
+          </mat-card-header>
+      
+          <form class="formulario">
+            <div class="alert alert-danger fa-blink" role="alert" *ngIf="sensorDesconectado">
+              Sensor Desconectado!! Favor verificar.
+            </div>
+            <mat-card-content>
+                    
+                <div class="formulario">
+                  <canvas baseChart width="800" height="300"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    [plugins]="lineChartPlugins"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+                  </canvas>
+                </div>
+            </mat-card-content>
+      
+          
+          </form>
+        </mat-card>
+
+</div>
+      

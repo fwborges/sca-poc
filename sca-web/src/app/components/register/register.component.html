@@ -1,0 +1,29 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Cadastre-se</mat-card-title>
+    </mat-card-header>
+
+    <form class="formulario">
+
+      <mat-card-content>
+
+        <mat-form-field class="formulario-fullwidth">
+            <input matInput placeholder="Nome" #name>
+        </mat-form-field>
+
+        <mat-form-field class="formulario-fullwidth">
+          <input matInput placeholder="Login" #login>
+        </mat-form-field>
+
+        <mat-form-field class="formulario-fullwidth">
+          <input matInput placeholder="Senha" type="password" #password>
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <button mat-stroked-button color="accent" class="btn-block" (click)="registerUser(login.value, password.value, name.value)">Cadastrar</button>
+
+    </form>
+  </mat-card>
+</div>

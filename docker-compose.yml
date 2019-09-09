@@ -1,43 +1,60 @@
 version: "3.6"
 services:
 
-  employee-api:
-    image: employee-api:latest
-    build: ./employee-api
-    ports:
-      - "8080:8080"
-    networks: 
-      - employee-network
-    depends_on:
-      - mongo
-      - config-server
-
-  mongo:
-    image: mongo:latest
-    networks:
-      - employee-network
-    ports:
-      - "27017:27017"
-
   config-server:
     image: config-server:latest
-    build: ./config-server
     networks: 
-      - employee-network
+      - sca-poc-network
     ports:
       - "8888:8888"
 
-  mongo-express:
-    image: mongo-express:latest
+  eureka-naming-server:
+    image: eureka-naming-server:latest
     networks: 
-      - employee-network
+      - sca-poc-network
     ports:
-      - "8081:8081"
+      - "8761:8761"
+
+  modulo-gestao-ativo:
+    image: modulo-gestao-ativo:latest
+    networks: 
+      - sca-poc-network
+    ports:
+      - "8200:8200"
+
+  modulo-seguranca-comunicacao:
+    image: modulo-seguranca-comunicacao:latest
+    networks: 
+      - sca-poc-network
+    ports:
+      - "8300:8300"
+
+  modulo-simulacao-sensores:
+    image: modulo-simulacao-sensores:latest
+    networks: 
+      - sca-poc-network
+    ports:
+      - "9000:9000"
+
+  modulo-usuario:
+    image: modulo-usuario:latest
+    networks: 
+      - sca-poc-network
+    ports:
+      - "8100:8100"
+
+  active-mq:
+    image: njmittet/alpine-activemq
+    networks:
+      - sca-poc-network
+    ports:
+      - 8161:8161
+      - 61616:61616
 
 networks: 
   default:
-  employee-network:
+  sca-poc-network:
     ipam:
       config:
-        - subnet: 20.30.0.0/16
+        - subnet: 20.31.0.0/16
   
